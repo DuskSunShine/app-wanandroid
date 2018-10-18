@@ -11,19 +11,18 @@ import java.util.Objects;
 
 public abstract class BaseActivity<P extends AbsPresenter> extends AppCompatActivity implements AbsView {
 
-    private P absPresenter;
+    protected P mPresenter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentViewId());
         AppManager.getInstance().addActivity(this);
-        absPresenter=createPresenter();
-        if (absPresenter!=null) {
-            absPresenter.attachView(this);
-        }
-        if (absPresenter!=null) {
-           providePresenter(absPresenter);
+        mPresenter=createPresenter();
+        if (mPresenter!=null) {
+            mPresenter.attachView(this);
+        }else {
+           throw  new NullPointerException(mPresenter.getClass().getSimpleName()+"未创建");
         }
         beforeInitView();
         initView();
@@ -34,7 +33,7 @@ public abstract class BaseActivity<P extends AbsPresenter> extends AppCompatActi
 
     public abstract P createPresenter();
 
-    public abstract void providePresenter(P absPresenter);
+    //public abstract void providePresenter(P absPresenter);
 
 
     public abstract void beforeInitView();
@@ -46,9 +45,10 @@ public abstract class BaseActivity<P extends AbsPresenter> extends AppCompatActi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (absPresenter!=null&&
-                absPresenter.isAttachedView()){
-            absPresenter.detachView();
+        AppManager.getInstance().remove(this);
+        if (mPresenter!=null&&
+                mPresenter.isAttachedView()){
+            mPresenter.detachView();
         }
     }
 }

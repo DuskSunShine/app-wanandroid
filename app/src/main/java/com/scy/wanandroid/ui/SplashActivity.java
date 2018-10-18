@@ -19,12 +19,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
 
     @Override
     public SplashPresenter createPresenter() {
-        return null;
-    }
-
-    @Override
-    public void providePresenter(SplashPresenter absPresenter) {
-
+        return new SplashPresenter();
     }
 
 

@@ -13,13 +13,13 @@ import java.util.Objects;
 
 public abstract class BaseFragment<P extends AbsPresenter> extends Fragment implements AbsView {
     protected View rootView;
-    private P absPresenter;
+    protected P mPresenter;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        absPresenter=createPresenter();
+        mPresenter=createPresenter();
     }
 
     @Override
@@ -38,12 +38,10 @@ public abstract class BaseFragment<P extends AbsPresenter> extends Fragment impl
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (absPresenter!=null) {
-            absPresenter.attachView(this);
+        if (mPresenter!=null) {
+            mPresenter.attachView(this);
         }
-        if (absPresenter!=null) {
-            providePresenter(absPresenter);
-        }
+
         beforeInitView();
         initView(rootView);
         initData();
@@ -52,7 +50,7 @@ public abstract class BaseFragment<P extends AbsPresenter> extends Fragment impl
 
     protected abstract P createPresenter();
 
-    protected abstract void providePresenter(P absPresenter);
+    //protected abstract void providePresenter(P absPresenter);
 
     protected abstract int onCreateView();
 
@@ -65,8 +63,9 @@ public abstract class BaseFragment<P extends AbsPresenter> extends Fragment impl
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (absPresenter.isAttachedView()){
-            absPresenter.detachView();
+        if (mPresenter!=null&&
+                mPresenter.isAttachedView()){
+            mPresenter.detachView();
         }
     }
 
