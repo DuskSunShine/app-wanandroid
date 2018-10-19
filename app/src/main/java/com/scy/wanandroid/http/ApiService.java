@@ -1,6 +1,9 @@
 package com.scy.wanandroid.http;
 
 
+import com.scy.wanandroid.entity.RegisterBean;
+
+import io.reactivex.Observable;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -13,15 +16,18 @@ import retrofit2.http.Query;
  */
 public interface ApiService {
 
+    /**
+     * 注册
+     * @param userName
+     * @param password
+     * @param repassword
+     * @return
+     */
     @POST("/user/register")
-    Observable<AlgoCameraConfig> register(@Query("username" String userName,
-            @Query("password") Stirng password,@Query("repassword") String repassword));
+    Observable<RegisterBean> register(@Query("username") String userName,
+                                      @Query("password") String password,
+                                      @Query("repassword") String repassword);
 
-    @POST("/iwg-welcome/app/person/findAllList")
-    Observable<PersonData> getAllPersons();
-
-    @POST("/iwg-welcome/app/attendencemark/findList")
-    Observable<WelcomeWords> getWelcomeWords();
 
     @POST("/iwg-welcome/app/visit/record/save")
     Call<ResponseBody> record(@Query("personId") String personId,

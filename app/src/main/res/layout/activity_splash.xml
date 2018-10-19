@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/back"
     tools:context=".ui.SplashActivity">
-<android.support.v7.widget.AppCompatTextView
+<!--<android.support.v7.widget.AppCompatTextView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:text="Wan Android"
     app:autoSizeMaxTextSize="45sp"
     app:autoSizeTextType="uniform"
-    android:textColor="@color/color_white"/>
+    android:textColor="@color/color_white"/>-->
 </RelativeLayout>

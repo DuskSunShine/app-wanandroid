@@ -3,13 +3,15 @@ package com.scy.wanandroid.ui;
 
 
 import android.content.Intent;
+import android.view.View;
 
 import com.scy.wanandroid.R;
 import com.scy.wanandroid.base.BaseActivity;
 import com.scy.wanandroid.contract.SplashContract;
 import com.scy.wanandroid.presenter.SplashPresenter;
 
-public class SplashActivity extends BaseActivity<SplashPresenter> implements SplashContract.SplashView {
+public class SplashActivity extends BaseActivity<SplashPresenter>
+        implements SplashContract.SplashView {
 
 
     @Override
@@ -42,5 +44,10 @@ public class SplashActivity extends BaseActivity<SplashPresenter> implements Spl
     public void startMainActivity() {
         startActivity(new Intent(this,MainActivity.class));
         finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+
     }
 }

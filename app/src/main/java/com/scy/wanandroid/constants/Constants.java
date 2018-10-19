@@ -7,4 +7,10 @@ public class Constants {
 
    public static final String BASEURL="http://www.wanandroid.com";
 
+   public static final int HOME=0x00;
+
+   public static final int OTHERS=0x01;
+
+   public static final String BUGLY_APPID="7cdf7e5a9b";
+
 }

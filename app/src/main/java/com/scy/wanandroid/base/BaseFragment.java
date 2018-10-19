@@ -11,7 +11,8 @@ import android.view.ViewGroup;
 import java.util.Objects;
 
 
-public abstract class BaseFragment<P extends AbsPresenter> extends Fragment implements AbsView {
+public abstract class BaseFragment<P extends AbsPresenter>
+        extends Fragment implements AbsView,View.OnClickListener {
     protected View rootView;
     protected P mPresenter;
 
@@ -38,12 +39,12 @@ public abstract class BaseFragment<P extends AbsPresenter> extends Fragment impl
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (mPresenter!=null) {
-            mPresenter.attachView(this);
-        }
 
         beforeInitView();
         initView(rootView);
+        if (mPresenter!=null) {
+            mPresenter.attachView(this);
+        }
         initData();
     }
 
@@ -67,6 +68,17 @@ public abstract class BaseFragment<P extends AbsPresenter> extends Fragment impl
                 mPresenter.isAttachedView()){
             mPresenter.detachView();
         }
+    }
+    public void setOnClick(int... ids) {
+        for (int id : ids)
+           rootView.findViewById(id).setOnClickListener(this);
+
+    }
+
+    public void setOnClick(View... views) {
+        for (View view : views)
+            view.setOnClickListener(this);
+
     }
 
 }
