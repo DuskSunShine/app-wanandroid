@@ -42,12 +42,17 @@ public class SplashActivity extends BaseActivity<SplashPresenter>
 
     @Override
     public void startMainActivity() {
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(this,HomeActivity.class));
         finish();
     }
 
     @Override
     public void onClick(View view) {
+
+    }
+
+    @Override
+    public void showErrorMsg(String s) {
 
     }
 }

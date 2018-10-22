@@ -1,9 +1,13 @@
 package com.scy.wanandroid.base;
 
 
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.scy.wanandroid.utils.AppManager;
 
@@ -18,7 +22,11 @@ public abstract class BaseActivity<P extends AbsPresenter>
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(getContentViewId());
+        if (getSupportActionBar()!=null){
+            getSupportActionBar().hide();
+        }
         AppManager.getInstance().addActivity(this);
         mPresenter=createPresenter();
         beforeInitView();

@@ -9,21 +9,20 @@ import android.view.ViewGroup;
 
 import com.scy.wanandroid.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class OthersFragment extends Fragment {
 
-    private static OthersFragment othersFragment = null;
+public class ProjectFragment extends Fragment {
 
-    public static OthersFragment create() {
-        if (othersFragment == null) {
-            othersFragment = new OthersFragment();
-        }
-        return othersFragment;
-    }
+   private static ProjectFragment projectFragment=null;
 
-    public OthersFragment() {
+   public static ProjectFragment create(){
+       if (projectFragment==null){
+           synchronized (ProjectFragment.class){
+               projectFragment=new ProjectFragment();
+           }
+       }
+       return projectFragment;
+   }
+    public ProjectFragment() {
         // Required empty public constructor
     }
 
@@ -32,7 +31,6 @@ public class OthersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_others, container, false);
+        return inflater.inflate(R.layout.fragment_project, container, false);
     }
-
 }

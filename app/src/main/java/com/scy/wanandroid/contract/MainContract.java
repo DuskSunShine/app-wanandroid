@@ -18,7 +18,7 @@ public interface MainContract {
 
         void addFragment();
 
-        void showFragment(int witch);
+        void showFragment(int witch,int... hide);
 
 
 
@@ -26,6 +26,5 @@ public interface MainContract {
 
     interface Presenter extends AbsPresenter<MainView>{
 
-        void  setCurrentPage(AppCompatCheckedTextView view);
     }
 }

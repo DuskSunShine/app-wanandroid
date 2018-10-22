@@ -1,5 +1,8 @@
 package com.scy.wanandroid.model;
 
+import com.scy.wanandroid.base.BaseResponse;
+import com.scy.wanandroid.entity.BannerBean;
+import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.entity.RegisterBean;
 import com.scy.wanandroid.http.ApiManager;
 import com.scy.wanandroid.http.ApiService;
@@ -31,6 +34,16 @@ public class DataModel implements ApiService {
     @Override
     public Observable<RegisterBean> register(String userName, String password, String repassword) {
         return ApiManager.create().register(userName, password, repassword);
+    }
+
+    @Override
+    public Observable<BaseResponse<BannerBean>> getBannerData() {
+        return ApiManager.create().getBannerData();
+    }
+
+    @Override
+    public Observable<BaseResponse<HomeArticleBean>> getHomeArticleList(int page) {
+        return ApiManager.create().getHomeArticleList(page);
     }
 
     @Override

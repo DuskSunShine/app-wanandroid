@@ -1,6 +1,9 @@
 package com.scy.wanandroid.http;
 
 
+import com.scy.wanandroid.base.BaseResponse;
+import com.scy.wanandroid.entity.BannerBean;
+import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.entity.RegisterBean;
 
 import io.reactivex.Observable;
@@ -27,6 +30,22 @@ public interface ApiService {
     Observable<RegisterBean> register(@Query("username") String userName,
                                       @Query("password") String password,
                                       @Query("repassword") String repassword);
+
+    /**
+     * 首页banner
+     * @return
+     */
+    @GET("/banner/json")
+    Observable<BaseResponse<BannerBean>> getBannerData();
+
+    /**
+     * 获取首页文章列表
+     *
+     * @param page 页数
+     * @return 首页文章列表数据
+     */
+    @GET("article/list/{num}/json")
+    Observable<BaseResponse<HomeArticleBean>> getHomeArticleList(@Path("page") int page);
 
 
     @POST("/iwg-welcome/app/visit/record/save")

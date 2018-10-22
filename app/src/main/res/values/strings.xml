@@ -3,4 +3,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">首页</string>
+    <string name="title_dashboard">体系</string>
+    <string name="title_notifications">公众号</string>
+    <string name="title_notification">项目</string>
+    <string name="http_error">网络错误</string>
+    <string name="unKnown_error">未知错误</string>
+    <string name="banner_error">广告banner获取失败</string>
 </resources>

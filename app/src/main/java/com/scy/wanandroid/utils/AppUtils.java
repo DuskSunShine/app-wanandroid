@@ -1,8 +1,6 @@
 package com.scy.wanandroid.utils;
 
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+
 
 /**
  * Created by SCY on 2018/10/19 at 14:32.

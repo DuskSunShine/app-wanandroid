@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/back"
-    tools:context=".ui.SplashActivity">
+    tools:context=".ui.SplashActivity"
+    android:fitsSystemWindows="true">
 <!--<android.support.v7.widget.AppCompatTextView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
