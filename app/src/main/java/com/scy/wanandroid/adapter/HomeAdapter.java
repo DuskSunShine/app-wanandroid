@@ -1,15 +1,62 @@
 package com.scy.wanandroid.adapter;
 
+import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
+import android.view.View;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.scy.wanandroid.R;
+import com.scy.wanandroid.entity.HomeArticleBean;
+
+import java.util.List;
 
 /**
  * Created by SCY on 2018/10/22 at 17:07.
  */
-public class HomeAdapter extends BaseQuickAdapter<,> {
+public class HomeAdapter extends BaseQuickAdapter<HomeArticleBean.DataBean.DatasBean,HomeAdapter.ViewHolder> {
 
+
+    public HomeAdapter(int layoutResId, @Nullable List<HomeArticleBean.DataBean.DatasBean> data) {
+        super(layoutResId, data);
+    }
+
+
+
+    @Override
+    protected void convert(ViewHolder helper, HomeArticleBean.DataBean.DatasBean item) {
+        if (item.isCollect()){
+            helper.collect.setImageResource(R.mipmap.icon_favo_on);
+        }else {
+            helper.collect.setImageResource(R.mipmap.icon_favo_off);
+        }
+        helper.author.setText(item.getAuthor());
+        if(item.getNiceDate().contains("小时")||
+                item.getNiceDate().contains("一天")
+                ||item.getNiceDate().contains("1天")){
+            helper.setBackgroundRes(R.id.updateTime,R.mipmap.tag_green);
+        }else {
+            helper.setBackgroundRes(R.id.updateTime,R.mipmap.tag_gray);
+        }
+        helper.updateTime.setText(item.getNiceDate());
+        helper.title.setText(item.getTitle());
+        helper.chapterName.setText(String.format("%s/%s", item.getSuperChapterName(), item.getChapterName()));
+    }
 
     class ViewHolder extends BaseViewHolder{
-
+        private AppCompatImageView collect;
+        private AppCompatTextView author;
+        private AppCompatTextView updateTime;
+        private AppCompatTextView title;
+        private AppCompatTextView chapterName;
+        public ViewHolder(View view) {
+            super(view);
+            collect=view.findViewById(R.id.collect);
+            author=view.findViewById(R.id.author);
+            updateTime=view.findViewById(R.id.updateTime);
+            title=view.findViewById(R.id.title);
+            chapterName=view.findViewById(R.id.chapterName);
+        }
     }
 }

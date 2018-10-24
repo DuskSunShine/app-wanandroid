@@ -11,4 +11,6 @@
     <string name="http_error">网络错误</string>
     <string name="unKnown_error">未知错误</string>
     <string name="banner_error">广告banner获取失败</string>
+    <string name="home_article_error">文章列表获取失败</string>
+    <string name="fab_scroll_down_show_behavior" >com.scy.wanandroid.widget.ScrollDownShowBehavior</string>
 </resources>

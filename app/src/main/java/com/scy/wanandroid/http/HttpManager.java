@@ -3,17 +3,9 @@ package com.scy.wanandroid.http;
 
 import com.scy.wanandroid.constants.Constants;
 
-import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -21,11 +13,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by SCY on 2018/10/16 at 16:51.
  */
-public class ApiManager {
-    private static ApiService apiService = null;
+public class HttpManager {
+    private static HttpService httpService = null;
 
-    public static ApiService create() {
-        if (null == apiService) {
+    public static HttpService create() {
+        if (null == httpService) {
             OkHttpClient okHttpClient = new OkHttpClient.Builder()
                     .connectTimeout(10, TimeUnit.SECONDS)
                     .readTimeout(10, TimeUnit.SECONDS)
@@ -38,8 +30,8 @@ public class ApiManager {
                     .addConverterFactory(GsonConverterFactory.create())
                     .baseUrl(Constants.BASEURL)
                     .build();
-            apiService = retrofit.create(ApiService.class);
+            httpService = retrofit.create(HttpService.class);
         }
-        return apiService;
+        return httpService;
     }
 }

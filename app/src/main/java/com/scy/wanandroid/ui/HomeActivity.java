@@ -170,4 +170,9 @@ public class HomeActivity extends BaseActivity<MainPresenter>
     public void showApiErrorMsg(String s) {
 
     }
+
+    @Override
+    public void showErrorCodeMsg(String s) {
+
+    }
 }

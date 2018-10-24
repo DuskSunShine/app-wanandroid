@@ -1,5 +1,7 @@
 package com.scy.wanandroid.presenter;
 
+import android.text.TextUtils;
+
 import com.scy.wanandroid.R;
 import com.scy.wanandroid.WanAndroidApp;
 import com.scy.wanandroid.base.BaseObserver;
@@ -8,6 +10,7 @@ import com.scy.wanandroid.contract.HomePageContract;
 import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.model.DataModel;
+import com.scy.wanandroid.utils.AppUtils;
 import com.scy.wanandroid.utils.RxUtils;
 
 
@@ -17,6 +20,8 @@ import com.scy.wanandroid.utils.RxUtils;
  */
 public class HomePagePresenter extends BasePresenter<HomePageContract.HomePageView>
 implements HomePageContract.Presenter{
+
+    private int currentPage=0;
     @Override
     protected void startInteractive() {
         initBannerData();
@@ -26,24 +31,47 @@ implements HomePageContract.Presenter{
     public void initBannerData() {
         addSubscribe(DataModel.getDataModel().getBannerData()
         .compose(RxUtils.rxSchedulerHelper())
-        .compose(RxUtils.handleResult())
-        .subscribeWith(new BaseObserver<BannerBean>(mView,
-                WanAndroidApp.getWanAndroidApp().getString(R.string.banner_error)) {
-            @Override
-            public void onNext(BannerBean bannerBean) {
-                mView.showBanner(bannerBean);
-            }
-        }));
-
+                .subscribeWith(new BaseObserver<BannerBean>(mView,
+                        WanAndroidApp.getWanAndroidApp()
+                                .getString(R.string.banner_error)) {
+                    @Override
+                    public void onNext(BannerBean bannerBean) {
+                        mView.showBanner(bannerBean);
+                        if (AppUtils.nonEmpty(bannerBean.getErrorMsg())) {
+                            mView.showErrorCodeMsg(bannerBean.getErrorMsg());
+                        }
+                    }
+                }));
 
     }
 
     @Override
-    public void initHomeArticleData(int page) {
+    public void initHomeArticleData(int page,boolean isRefresh) {
         addSubscribe(DataModel.getDataModel().getHomeArticleList(page)
         .compose(RxUtils.rxSchedulerHelper())
-        .compose(RxUtils.handleResult())
                 .subscribeWith(new BaseObserver<HomeArticleBean>(mView,
-                        )));
+                        WanAndroidApp.getWanAndroidApp()
+                                .getString(R.string.home_article_error)) {
+                    @Override
+                    public void onNext(HomeArticleBean homeArticleBean) {
+                        mView.showHomeArticleList(homeArticleBean,isRefresh);
+                        if (AppUtils.nonEmpty(homeArticleBean.getErrorMsg())) {
+                            mView.showErrorCodeMsg(homeArticleBean.getErrorMsg());
+
+                        }
+                    }
+                }));
+    }
+
+    @Override
+    public void refresh() {
+        initBannerData();
+        initHomeArticleData(0,true);
+    }
+
+    @Override
+    public void loadMore() {
+        currentPage++;
+        initHomeArticleData(currentPage,false);
     }
 }

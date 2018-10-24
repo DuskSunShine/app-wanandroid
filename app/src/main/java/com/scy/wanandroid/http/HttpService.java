@@ -17,7 +17,7 @@ import retrofit2.http.Query;
 /**
  * Created by SCY on 2018/10/16 at 16:42.
  */
-public interface ApiService {
+public interface HttpService {
 
     /**
      * 注册
@@ -36,7 +36,7 @@ public interface ApiService {
      * @return
      */
     @GET("/banner/json")
-    Observable<BaseResponse<BannerBean>> getBannerData();
+    Observable<BannerBean> getBannerData();
 
     /**
      * 获取首页文章列表
@@ -44,8 +44,8 @@ public interface ApiService {
      * @param page 页数
      * @return 首页文章列表数据
      */
-    @GET("article/list/{num}/json")
-    Observable<BaseResponse<HomeArticleBean>> getHomeArticleList(@Path("page") int page);
+    @GET("article/list/{page}/json")
+    Observable<HomeArticleBean> getHomeArticleList(@Path("page") int page);
 
 
     @POST("/iwg-welcome/app/visit/record/save")

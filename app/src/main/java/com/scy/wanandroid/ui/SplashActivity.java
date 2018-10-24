@@ -51,8 +51,15 @@ public class SplashActivity extends BaseActivity<SplashPresenter>
 
     }
 
+
+
     @Override
-    public void showErrorMsg(String s) {
+    public void showApiErrorMsg(String s) {
+
+    }
+
+    @Override
+    public void showErrorCodeMsg(String s) {
 
     }
 }

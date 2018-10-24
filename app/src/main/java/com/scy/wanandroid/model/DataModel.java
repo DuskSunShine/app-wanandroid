@@ -1,11 +1,10 @@
 package com.scy.wanandroid.model;
 
-import com.scy.wanandroid.base.BaseResponse;
 import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.entity.RegisterBean;
-import com.scy.wanandroid.http.ApiManager;
-import com.scy.wanandroid.http.ApiService;
+import com.scy.wanandroid.http.HttpManager;
+import com.scy.wanandroid.http.HttpService;
 
 import io.reactivex.Observable;
 import okhttp3.ResponseBody;
@@ -14,7 +13,7 @@ import retrofit2.Call;
 /**
  * Created by SCY on 2018/10/19 at 9:59.
  */
-public class DataModel implements ApiService {
+public class DataModel implements HttpService {
 
     private DataModel() {
     }
@@ -33,17 +32,17 @@ public class DataModel implements ApiService {
 
     @Override
     public Observable<RegisterBean> register(String userName, String password, String repassword) {
-        return ApiManager.create().register(userName, password, repassword);
+        return HttpManager.create().register(userName, password, repassword);
     }
 
     @Override
-    public Observable<BaseResponse<BannerBean>> getBannerData() {
-        return ApiManager.create().getBannerData();
+    public Observable<BannerBean> getBannerData() {
+        return HttpManager.create().getBannerData();
     }
 
     @Override
-    public Observable<BaseResponse<HomeArticleBean>> getHomeArticleList(int page) {
-        return ApiManager.create().getHomeArticleList(page);
+    public Observable<HomeArticleBean> getHomeArticleList(int page) {
+        return HttpManager.create().getHomeArticleList(page);
     }
 
     @Override

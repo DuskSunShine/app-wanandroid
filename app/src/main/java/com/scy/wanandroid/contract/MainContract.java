@@ -1,6 +1,5 @@
 package com.scy.wanandroid.contract;
 
-import android.support.v7.widget.AppCompatCheckedTextView;
 
 import com.scy.wanandroid.base.AbsPresenter;
 import com.scy.wanandroid.base.AbsView;
