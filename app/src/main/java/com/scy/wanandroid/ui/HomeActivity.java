@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -30,6 +31,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
     private KnowledgeFragment knowledgeFragment;
     private WeChatSubFragment weChatSubFragment;
     private ProjectFragment projectFragment;
+    private AppCompatTextView main_title;
     @SuppressLint("UseSparseArrays")
     private HashMap<Integer, Fragment> fragments = new HashMap<>();
 
@@ -68,6 +70,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
     public void initView() {
         navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
+        main_title=findViewById(R.id.main_title);
     }
 
     @Override
@@ -112,7 +115,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                         transaction.hide(fragments.get(f));
                     }
                 }
-
+                main_title.setText(R.string.title_home);
                 break;
             case Constants.KNOWLEDGE:
                 transaction.show(knowledgeFragment);
@@ -121,6 +124,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                         transaction.hide(fragments.get(f));
                     }
                 }
+                main_title.setText(R.string.title_dashboard);
                 break;
             case Constants.PROJECT:
                 transaction.show(projectFragment);
@@ -129,6 +133,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                         transaction.hide(fragments.get(f));
                     }
                 }
+                main_title.setText(R.string.title_notifications);
                 break;
             case Constants.WECHATSUB:
                 transaction.show(weChatSubFragment);
@@ -137,6 +142,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                         transaction.hide(fragments.get(f));
                     }
                 }
+                main_title.setText(R.string.title_notification);
                 break;
         }
         transaction.commitAllowingStateLoss();

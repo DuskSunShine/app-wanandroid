@@ -1,5 +1,6 @@
 package com.scy.wanandroid.contract;
 
+import com.just.agentweb.AgentWeb;
 import com.scy.wanandroid.base.AbsPresenter;
 import com.scy.wanandroid.base.AbsView;
 
@@ -9,10 +10,10 @@ import com.scy.wanandroid.base.AbsView;
 public interface WebViewContract {
 
     interface WebView extends AbsView{
-
+        void loadUrl();
     }
 
     interface Presenter extends AbsPresenter<WebView>{
-
+        void settingWebView(AgentWeb agentWeb);
     }
 }

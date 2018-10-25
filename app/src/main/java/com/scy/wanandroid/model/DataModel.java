@@ -2,6 +2,7 @@ package com.scy.wanandroid.model;
 
 import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
+import com.scy.wanandroid.entity.KnowledgeBean;
 import com.scy.wanandroid.entity.RegisterBean;
 import com.scy.wanandroid.http.HttpManager;
 import com.scy.wanandroid.http.HttpService;
@@ -43,6 +44,11 @@ public class DataModel implements HttpService {
     @Override
     public Observable<HomeArticleBean> getHomeArticleList(int page) {
         return HttpManager.create().getHomeArticleList(page);
+    }
+
+    @Override
+    public Observable<KnowledgeBean> getKnowledgeList() {
+        return HttpManager.create().getKnowledgeList();
     }
 
     @Override

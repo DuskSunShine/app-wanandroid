@@ -2,33 +2,30 @@ package com.scy.wanandroid.ui;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.KeyEvent;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
+import com.just.agentweb.AgentWeb;
 import com.scy.wanandroid.R;
-import com.scy.wanandroid.base.BaseActivity;
+import com.scy.wanandroid.base.BaseSwipeActivity;
 import com.scy.wanandroid.constants.IntentKey;
 import com.scy.wanandroid.contract.WebViewContract;
 import com.scy.wanandroid.presenter.WebViewPresenter;
 
-public class WebActivity extends BaseActivity<WebViewPresenter>
+
+public class WebActivity extends BaseSwipeActivity<WebViewPresenter>
         implements WebViewContract.WebView {
 
 
-    private WebView webView;
-    private ProgressBar progressBar;
+    private FrameLayout webView;
     private String url="";
     private String title="";
     private AppCompatTextView main_title;
+    private AgentWeb agentWeb;
     @Override
     public int getContentViewId() {
         return R.layout.activity_web;
@@ -41,61 +38,28 @@ public class WebActivity extends BaseActivity<WebViewPresenter>
 
     @Override
     public void beforeInitView() {
-        Intent intent = getIntent();
-        if (intent!=null){
-            url=intent.getStringExtra(IntentKey.WEB_URL);
-            title=intent.getStringExtra(IntentKey.TITLE);
-        }
+
     }
 
     @Override
     public void initView() {
-        webView=findViewById(R.id.webView);
-        progressBar=findViewById(R.id.progressBar);
-        main_title=findViewById(R.id.main_title);
-        main_title.setText(title);
+        webView= (FrameLayout) findViewById(R.id.webView);
+        main_title= (AppCompatTextView) findViewById(R.id.main_title);
+
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     public void initData() {
-        WebSettings mSettings = webView.getSettings();
-        mSettings.setAppCacheEnabled(true);
-        mSettings.setDomStorageEnabled(true);
-        mSettings.setDatabaseEnabled(true);
-        mSettings.setJavaScriptEnabled(true);
-        mSettings.setSupportZoom(true);
-        mSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-        mSettings.setBuiltInZoomControls(true);
-        //不显示缩放按钮
-        mSettings.setDisplayZoomControls(false);
-        //设置自适应屏幕，两者合用
-        //将图片调整到适合WebView的大小
-        mSettings.setUseWideViewPort(true);
-        //缩放至屏幕的大小
-        mSettings.setLoadWithOverviewMode(true);
-        //自适应屏幕
-        mSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
-        webView.loadUrl(url);
-        webView.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return super.shouldOverrideUrlLoading(view, url);
-            }
-        });
-        webView.setWebChromeClient(new WebChromeClient(){
-            @Override
-            public void onProgressChanged(WebView view, int newProgress) {
-                progressBar.setVisibility(View.VISIBLE);
-                progressBar.setProgress(newProgress);
-                if (newProgress==100){
-                    progressBar.setVisibility(View.GONE);
-                }
-                super.onProgressChanged(view, newProgress);
-
-            }
-        });
+        agentWeb = AgentWeb.with(this)//传入Activity
+                .setAgentWebParent(webView, new LinearLayout.LayoutParams(-1, -1))//传入AgentWeb 的父控件 ，如果父控件为 RelativeLayout ， 那么第二参数需要传入 RelativeLayout.LayoutParams
+                .useDefaultIndicator()// 使用默认进度条
+                .setMainFrameErrorView(R.layout.web_error,-1)
+                .createAgentWeb()
+                .ready()
+                .go(url);
+        mPresenter.settingWebView(agentWeb);
+        main_title.setText(title);
     }
 
     @Override
@@ -113,13 +77,36 @@ public class WebActivity extends BaseActivity<WebViewPresenter>
 
     }
 
+
+
+    @Override
+    public void loadUrl() {
+        Intent intent = getIntent();
+        if (intent!=null){
+            url=intent.getStringExtra(IntentKey.WEB_URL);
+            title=intent.getStringExtra(IntentKey.TITLE);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        agentWeb.getWebLifeCycle().onPause();
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        agentWeb.getWebLifeCycle().onResume();
+        super.onResume();
+    }
+    @Override
+    public void onDestroy() {
+        agentWeb.getWebLifeCycle().onDestroy();
+        super.onDestroy();
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
-            progressBar.setVisibility(View.INVISIBLE);
-            webView.goBack();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+        return agentWeb.handleKeyEvent(keyCode, event) || super.onKeyDown(keyCode, event);
     }
 }

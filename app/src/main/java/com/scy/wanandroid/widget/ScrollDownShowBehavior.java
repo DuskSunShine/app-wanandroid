@@ -92,7 +92,7 @@ public class ScrollDownShowBehavior extends FloatingActionButton.Behavior {
     private  void translateHide(View view, ViewPropertyAnimatorListener viewPropertyAnimatorListener) {
         view.setVisibility(View.VISIBLE);
         ViewCompat.animate(view)
-                .translationY(350)
+                .translationY(450)//大一点 保证完全看不见
                 .setDuration(400)
                 .setInterpolator(FAST_OUT_SLOW_IN_INTERPOLATOR)
                 .setListener(viewPropertyAnimatorListener)

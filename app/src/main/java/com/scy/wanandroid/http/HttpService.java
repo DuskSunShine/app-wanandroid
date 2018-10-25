@@ -4,6 +4,7 @@ package com.scy.wanandroid.http;
 import com.scy.wanandroid.base.BaseResponse;
 import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
+import com.scy.wanandroid.entity.KnowledgeBean;
 import com.scy.wanandroid.entity.RegisterBean;
 
 import io.reactivex.Observable;
@@ -21,6 +22,7 @@ public interface HttpService {
 
     /**
      * 注册
+     *
      * @param userName
      * @param password
      * @param repassword
@@ -33,6 +35,7 @@ public interface HttpService {
 
     /**
      * 首页banner
+     *
      * @return
      */
     @GET("/banner/json")
@@ -47,6 +50,12 @@ public interface HttpService {
     @GET("article/list/{page}/json")
     Observable<HomeArticleBean> getHomeArticleList(@Path("page") int page);
 
+    /**
+     *体系数据
+     * @return
+     */
+    @GET("/tree/json")
+    Observable<KnowledgeBean> getKnowledgeList();
 
     @POST("/iwg-welcome/app/visit/record/save")
     Call<ResponseBody> record(@Query("personId") String personId,
