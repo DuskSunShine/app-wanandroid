@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -78,6 +79,12 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
         adapter=new KnowledgeAdapter(R.layout.knowledge_item,list);
         knowledgeRecycler.setLayoutManager(new LinearLayoutManager(context));
         knowledgeRecycler.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
     }
 
     @Override
