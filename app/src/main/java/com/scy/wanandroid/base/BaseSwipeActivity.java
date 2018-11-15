@@ -8,6 +8,9 @@ import android.view.View;
 
 import com.scy.wanandroid.R;
 import com.scy.wanandroid.utils.AppManager;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
 
@@ -19,12 +22,13 @@ public abstract class BaseSwipeActivity<P extends AbsPresenter> extends SwipeBac
         implements View.OnClickListener ,AbsView{
     protected SwipeBackLayout mSwipeBackLayout;
     protected P mPresenter;
+    private Unbinder unBinder;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(getContentViewId());
-
+        unBinder=ButterKnife.bind(this);
         mSwipeBackLayout = getSwipeBackLayout();
         mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_LEFT);
 
@@ -45,25 +49,19 @@ public abstract class BaseSwipeActivity<P extends AbsPresenter> extends SwipeBac
         }
         AppManager.getInstance().addActivity(this);
         mPresenter=createPresenter();
-        beforeInitView();
-        initView();
         if (mPresenter!=null) {
             mPresenter.attachView(this);
         }else {
             throw  new NullPointerException(mPresenter.getClass().getSimpleName()+"未创建");
         }
-        initData();
+        initDataAndEvents();
     }
 
     public abstract int getContentViewId();
 
     public abstract P createPresenter();
 
-    public abstract void beforeInitView();
-
-    public abstract void initView();
-
-    public abstract void initData();
+    public abstract void initDataAndEvents();
 
 
 
@@ -113,8 +111,17 @@ public abstract class BaseSwipeActivity<P extends AbsPresenter> extends SwipeBac
 
     @Override
     protected void onDestroy() {
-        AppManager.getInstance().remove(this);
         super.onDestroy();
+        AppManager.getInstance().remove(this);
+        if (mPresenter!=null&&
+                mPresenter.isAttachedView()){
+            mPresenter.detachView();
+            mPresenter=null;
+        }
+        if (unBinder != null && unBinder != Unbinder.EMPTY) {
+            unBinder.unbind();
+            unBinder = null;
+        }
     }
     @Override
     public void onBackPressed() {

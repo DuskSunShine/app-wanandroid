@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.scy.wanandroid.R;
 import com.scy.wanandroid.base.BaseActivity;
@@ -20,18 +21,23 @@ import com.scy.wanandroid.utils.AppUtils;
 
 import java.util.HashMap;
 
+import butterknife.BindView;
+
 
 public class HomeActivity extends BaseActivity<MainPresenter>
         implements MainContract.MainView, BottomNavigationView.OnNavigationItemSelectedListener {
-
-    private DrawerLayout drawer;
-    private BottomNavigationView navigation;
+    @BindView(R.id.drawer)
+    DrawerLayout drawer;
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+    @BindView(R.id.main_title)
+    AppCompatTextView main_title;
 
     private HomeFragment homeFragment;
     private KnowledgeFragment knowledgeFragment;
     private WeChatSubFragment weChatSubFragment;
     private ProjectFragment projectFragment;
-    private AppCompatTextView main_title;
+
     @SuppressLint("UseSparseArrays")
     private HashMap<Integer, Fragment> fragments = new HashMap<>();
 
@@ -43,11 +49,6 @@ public class HomeActivity extends BaseActivity<MainPresenter>
 
     @Override
     public MainPresenter createPresenter() {
-        return new MainPresenter();
-    }
-
-    @Override
-    public void beforeInitView() {
         if (AppUtils.isNull(homeFragment)) {
             homeFragment = HomeFragment.create();
             fragments.put(Constants.HOME, homeFragment);
@@ -64,19 +65,15 @@ public class HomeActivity extends BaseActivity<MainPresenter>
             projectFragment = ProjectFragment.create();
             fragments.put(Constants.PROJECT, projectFragment);
         }
-    }
-
-    @Override
-    public void initView() {
-        navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
-        main_title=findViewById(R.id.main_title);
+        return new MainPresenter();
     }
 
     @Override
-    public void initData() {
+    public void initDataAndEvents() {
 
     }
+
 
     @Override
     public void onClick(View view) {
@@ -133,7 +130,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                         transaction.hide(fragments.get(f));
                     }
                 }
-                main_title.setText(R.string.title_notifications);
+                main_title.setText(R.string.title_notification);
                 break;
             case Constants.WECHATSUB:
                 transaction.show(weChatSubFragment);
@@ -142,7 +139,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                         transaction.hide(fragments.get(f));
                     }
                 }
-                main_title.setText(R.string.title_notification);
+                main_title.setText(R.string.title_notifications);
                 break;
         }
         transaction.commitAllowingStateLoss();

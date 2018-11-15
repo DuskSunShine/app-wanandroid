@@ -6,7 +6,7 @@ import com.scy.wanandroid.base.BaseObserver;
 import com.scy.wanandroid.base.BasePresenter;
 import com.scy.wanandroid.contract.KnowledgeContract;
 import com.scy.wanandroid.entity.KnowledgeBean;
-import com.scy.wanandroid.model.DataModel;
+import com.scy.wanandroid.model.DataManager;
 import com.scy.wanandroid.utils.AppUtils;
 import com.scy.wanandroid.utils.RxUtils;
 
@@ -23,7 +23,7 @@ implements KnowledgeContract.Presenter{
 
 
     private void getKnowledgeList(){
-        addSubscribe(DataModel.getDataModel().getKnowledgeList()
+        addSubscribe(mDataManager.getKnowledgeList()
         .compose(RxUtils.rxSchedulerHelper())
         .subscribeWith(new BaseObserver<KnowledgeBean>(mView,
                 WanAndroidApp.getWanAndroidApp().getString(R.string.knowget_error)) {

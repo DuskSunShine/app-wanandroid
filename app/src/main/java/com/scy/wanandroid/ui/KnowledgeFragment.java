@@ -25,11 +25,13 @@ import com.scy.wanandroid.utils.WanAndroidDialog;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
-        implements KnowledgeContract.KnowledgeView,OnRefreshListener {
+        implements KnowledgeContract.KnowledgeView, OnRefreshListener {
 
     private static KnowledgeFragment knowledgeFragment = null;
 
@@ -44,11 +46,14 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
         // Required empty public constructor
     }
 
-    private SmartRefreshLayout knowledgeRefresh;
-    private RecyclerView knowledgeRecycler;
+    @BindView(R.id.knowledgeRefresh)
+    SmartRefreshLayout knowledgeRefresh;
+    @BindView(R.id.knowledgeRecycler)
+    RecyclerView knowledgeRecycler;
     private KnowledgeAdapter adapter;
     private HomeActivity context;
-    private List<KnowledgeBean.DataBean> list=new ArrayList<>();
+    private List<KnowledgeBean.DataBean> list = new ArrayList<>();
+
     @Override
     protected KnowledgePresenter createPresenter() {
         return new KnowledgePresenter();
@@ -60,23 +65,9 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
     }
 
     @Override
-    protected void beforeInitView() {
+    protected void initDataAndEvents() {
 
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof HomeActivity){
-            this.context= (HomeActivity) context;
-        }
-    }
-
-    @Override
-    protected void initView(View rootView) {
-        knowledgeRefresh=rootView.findViewById(R.id.knowledgeRefresh);
-        knowledgeRecycler=rootView.findViewById(R.id.knowledgeRecycler);
-        adapter=new KnowledgeAdapter(R.layout.knowledge_item,list);
+        adapter = new KnowledgeAdapter(R.layout.knowledge_item, list);
         knowledgeRecycler.setLayoutManager(new LinearLayoutManager(context));
         knowledgeRecycler.setAdapter(adapter);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -87,10 +78,15 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
         });
     }
 
-    @Override
-    protected void initData() {
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof HomeActivity) {
+            this.context = (HomeActivity) context;
+        }
     }
+
 
     @Override
     public void onClick(View view) {
@@ -110,7 +106,7 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
     @Override
     public void showKnowledge(KnowledgeBean knowledgeBean) {
         list.clear();
-        list=knowledgeBean.getData();
+        list = knowledgeBean.getData();
         adapter.addData(list);
     }
 

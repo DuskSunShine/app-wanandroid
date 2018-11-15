@@ -1,7 +1,5 @@
 package com.scy.wanandroid.presenter;
 
-import android.text.TextUtils;
-
 import com.scy.wanandroid.R;
 import com.scy.wanandroid.WanAndroidApp;
 import com.scy.wanandroid.base.BaseObserver;
@@ -9,7 +7,7 @@ import com.scy.wanandroid.base.BasePresenter;
 import com.scy.wanandroid.contract.HomePageContract;
 import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
-import com.scy.wanandroid.model.DataModel;
+import com.scy.wanandroid.model.DataManager;
 import com.scy.wanandroid.utils.AppUtils;
 import com.scy.wanandroid.utils.RxUtils;
 
@@ -29,7 +27,7 @@ implements HomePageContract.Presenter{
 
     @Override
     public void initBannerData() {
-        addSubscribe(DataModel.getDataModel().getBannerData()
+        addSubscribe(mDataManager.getBannerData()
         .compose(RxUtils.rxSchedulerHelper())
                 .subscribeWith(new BaseObserver<BannerBean>(mView,
                         WanAndroidApp.getWanAndroidApp()
@@ -47,7 +45,7 @@ implements HomePageContract.Presenter{
 
     @Override
     public void initHomeArticleData(int page,boolean isRefresh) {
-        addSubscribe(DataModel.getDataModel().getHomeArticleList(page)
+        addSubscribe(mDataManager.getHomeArticleList(page)
         .compose(RxUtils.rxSchedulerHelper())
                 .subscribeWith(new BaseObserver<HomeArticleBean>(mView,
                         WanAndroidApp.getWanAndroidApp()

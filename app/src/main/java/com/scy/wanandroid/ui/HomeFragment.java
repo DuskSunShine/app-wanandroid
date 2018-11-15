@@ -35,11 +35,13 @@ import com.youth.banner.listener.OnBannerListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends BaseFragment<HomePagePresenter>
-        implements HomePageContract.HomePageView,OnRefreshLoadMoreListener {
+        implements HomePageContract.HomePageView, OnRefreshLoadMoreListener {
 
     @SuppressLint("StaticFieldLeak")
     private static HomeFragment homeFragment = null;
@@ -56,15 +58,18 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
         return homeFragment;
     }
 
-    private SmartRefreshLayout smartRefresh;
-    private RecyclerView recycler;
+    @BindView(R.id.smartRefresh)
+    SmartRefreshLayout smartRefresh;
+    @BindView(R.id.recycler)
+    RecyclerView recycler;
     private HomeAdapter homeAdapter;
     private HomeActivity homeActivity;
     private Banner mBanner;
     private List<String> mBannerTitleList;
     private List<String> mBannerUrlList;
-    private List<HomeArticleBean.DataBean.DatasBean> homepageList=new ArrayList<>();
+    private List<HomeArticleBean.DataBean.DatasBean> homepageList = new ArrayList<>();
     private List<HomeArticleBean.DataBean.DatasBean> data;
+
     @Override
     protected HomePagePresenter createPresenter() {
         return new HomePagePresenter();
@@ -75,28 +80,19 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
         return R.layout.fragment_home;
     }
 
-    @Override
-    protected void beforeInitView() {
-
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof HomeActivity){
-            homeActivity= (HomeActivity) context;
+        if (context instanceof HomeActivity) {
+            homeActivity = (HomeActivity) context;
         }
     }
 
-    @Override
-    protected void initView(View rootView) {
-        smartRefresh=rootView.findViewById(R.id.smartRefresh);
-        recycler=rootView.findViewById(R.id.recycler);
-    }
 
     @Override
-    protected void initData() {
-        homeAdapter=new HomeAdapter(R.layout.home_item,homepageList);
+    public void initDataAndEvents() {
+        homeAdapter = new HomeAdapter(R.layout.home_item, homepageList);
         recycler.setLayoutManager(new LinearLayoutManager(homeActivity));
 
         CardView mHeaderGroup = (CardView) LayoutInflater.from(homeActivity).inflate(R.layout.head_banner, null);
@@ -105,15 +101,15 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
         homeAdapter.addHeaderView(mBanner);
         recycler.setAdapter(homeAdapter);
 
-        mPresenter.initHomeArticleData(0,true);
+        mPresenter.initHomeArticleData(0, true);
 
         homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                 data = homeAdapter.getData();
-                if (!data.isEmpty()){
-                    AppUtils.goWebView(homeActivity,data.get(position).getLink()
-                    ,data.get(position).getTitle());
+                data = homeAdapter.getData();
+                if (!data.isEmpty()) {
+                    AppUtils.goWebView(homeActivity, data.get(position).getLink()
+                            , data.get(position).getTitle());
                 }
             }
         });
@@ -162,7 +158,7 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
-                AppUtils.goWebView(homeActivity,mBannerUrlList.get(position),
+                AppUtils.goWebView(homeActivity, mBannerUrlList.get(position),
                         mBannerTitleList.get(position));
             }
         });
@@ -171,11 +167,11 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
     }
 
     @Override
-    public void showHomeArticleList(HomeArticleBean homeArticleBean,boolean isRefresh) {
-        if (isRefresh){
-            homepageList=homeArticleBean.getData().getDatas();
+    public void showHomeArticleList(HomeArticleBean homeArticleBean, boolean isRefresh) {
+        if (isRefresh) {
+            homepageList = homeArticleBean.getData().getDatas();
             homeAdapter.addData(homepageList);
-        }else {
+        } else {
             homepageList.addAll(homeArticleBean.getData().getDatas());
             homeAdapter.replaceData(homepageList);
         }
@@ -191,6 +187,7 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
     public void showErrorCodeMsg(String s) {
         WanAndroidDialog.dialog(s);
     }
+
     @Override
     public void onResume() {
         super.onResume();

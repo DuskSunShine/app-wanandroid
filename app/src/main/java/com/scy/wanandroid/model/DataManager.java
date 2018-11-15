@@ -14,21 +14,21 @@ import retrofit2.Call;
 /**
  * Created by SCY on 2018/10/19 at 9:59.
  */
-public class DataModel implements HttpService {
+public class DataManager implements HttpService {
 
-    private DataModel() {
+    private DataManager() {
     }
 
-    private static volatile DataModel dataModel = null;
+    private static volatile DataManager dataManager = null;
 
-    public static DataModel getDataModel() {
+    public static DataManager getDataManager() {
 
-        if (dataModel == null) {
-            synchronized (DataModel.class) {
-                dataModel = new DataModel();
+        if (dataManager == null) {
+            synchronized (DataManager.class) {
+                dataManager = new DataManager();
             }
         }
-        return dataModel;
+        return dataManager;
     }
 
     @Override
@@ -50,9 +50,5 @@ public class DataModel implements HttpService {
     public Observable<KnowledgeBean> getKnowledgeList() {
         return HttpManager.create().getKnowledgeList();
     }
-
-    @Override
-    public Call<ResponseBody> record(String personId, String personName, String visitTimeStr, String cameraId, String faceUrl, String personType) {
-        return null;
-    }
+    
 }

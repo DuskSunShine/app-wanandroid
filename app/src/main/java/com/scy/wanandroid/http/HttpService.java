@@ -57,12 +57,5 @@ public interface HttpService {
     @GET("/tree/json")
     Observable<KnowledgeBean> getKnowledgeList();
 
-    @POST("/iwg-welcome/app/visit/record/save")
-    Call<ResponseBody> record(@Query("personId") String personId,
-                              @Query("personName") String personName,
-                              @Query("visitTimeStr") String visitTimeStr,
-                              @Query("cameraId") String cameraId,
-                              @Query("faceUrl") String faceUrl,
-                              @Query("personType") String personType);
 
 }

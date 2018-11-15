@@ -10,12 +10,15 @@ import android.view.ViewGroup;
 
 import java.util.Objects;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 
 public abstract class BaseFragment<P extends AbsPresenter>
         extends Fragment implements AbsView,View.OnClickListener {
     protected View rootView;
     protected P mPresenter;
-
+    private Unbinder unBinder;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +36,7 @@ public abstract class BaseFragment<P extends AbsPresenter>
         if (parent != null) {
             parent.removeView(rootView);
         }
+        unBinder = ButterKnife.bind(this, rootView);
         return rootView;
     }
 
@@ -40,12 +44,10 @@ public abstract class BaseFragment<P extends AbsPresenter>
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        beforeInitView();
-        initView(rootView);
         if (mPresenter!=null) {
             mPresenter.attachView(this);
         }
-        initData();
+        initDataAndEvents();
     }
 
 
@@ -55,11 +57,15 @@ public abstract class BaseFragment<P extends AbsPresenter>
 
     protected abstract int onCreateView();
 
-    protected abstract void beforeInitView();
-
-    protected abstract void initView(View rootView);
-
-    protected abstract void initData();
+    protected abstract void initDataAndEvents();
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (unBinder != null && unBinder != Unbinder.EMPTY) {
+            unBinder.unbind();
+            unBinder = null;
+        }
+    }
 
     @Override
     public void onDestroy() {
@@ -67,6 +73,7 @@ public abstract class BaseFragment<P extends AbsPresenter>
         if (mPresenter!=null&&
                 mPresenter.isAttachedView()){
             mPresenter.detachView();
+            mPresenter=null;
         }
     }
     public void setOnClick(int... ids) {

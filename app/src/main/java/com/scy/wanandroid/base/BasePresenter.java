@@ -18,6 +18,8 @@ package com.scy.wanandroid.base;
 
 
 
+import com.scy.wanandroid.model.DataManager;
+
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -27,9 +29,12 @@ public abstract class BasePresenter<V extends AbsView> implements AbsPresenter<V
 
     private CompositeDisposable disposable;
 
+    protected DataManager mDataManager;
+
     @Override
     public void attachView(V baseView) {
         this.mView=baseView;
+        mDataManager=DataManager.getDataManager();
         startInteractive();
     }
 

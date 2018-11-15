@@ -24,21 +24,11 @@ public class SplashActivity extends BaseActivity<SplashPresenter>
         return new SplashPresenter();
     }
 
-
     @Override
-    public void beforeInitView() {
+    public void initDataAndEvents() {
 
     }
 
-    @Override
-    public void initView() {
-
-    }
-
-    @Override
-    public void initData() {
-
-    }
 
     @Override
     public void startMainActivity() {
