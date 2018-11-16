@@ -1,13 +1,10 @@
 package com.scy.wanandroid.utils;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
-
-import com.scy.wanandroid.WanAndroidApp;
 
 /**
  * Created by SCY on 2018/10/23 at 14:10.
@@ -42,7 +39,7 @@ public class WanAndroidDialog {
                     dialog.cancel();
                 }
                String text= (String) msg.obj;
-                dialog=new AlertDialog.Builder(WanAndroidApp.getWanAndroidApp())
+                dialog=new AlertDialog.Builder(AppManager.getInstance().getTopActivity())
                         .setMessage(text)
                         .create();
                 dialog.setButton(DialogInterface.BUTTON_POSITIVE, "确定",

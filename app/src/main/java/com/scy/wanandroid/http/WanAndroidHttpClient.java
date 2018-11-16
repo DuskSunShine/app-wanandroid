@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by SCY on 2018/10/16 at 16:51.
  */
-public class HttpManager {
+public class WanAndroidHttpClient {
     private static HttpService httpService = null;
 
     public static HttpService create() {

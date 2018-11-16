@@ -4,7 +4,6 @@ package com.scy.wanandroid.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,7 +22,7 @@ import com.scy.wanandroid.contract.HomePageContract;
 import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.presenter.HomePagePresenter;
-import com.scy.wanandroid.utils.AppToast;
+import com.scy.wanandroid.utils.WanAndroidToast;
 import com.scy.wanandroid.utils.AppUtils;
 import com.scy.wanandroid.utils.GlideImageLoader;
 import com.scy.wanandroid.utils.WanAndroidDialog;
@@ -36,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,7 +100,6 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
         mHeaderGroup.removeView(mBanner);
         homeAdapter.addHeaderView(mBanner);
         recycler.setAdapter(homeAdapter);
-
         mPresenter.initHomeArticleData(0, true);
 
         homeAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
@@ -169,18 +168,33 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
     @Override
     public void showHomeArticleList(HomeArticleBean homeArticleBean, boolean isRefresh) {
         if (isRefresh) {
-            homepageList = homeArticleBean.getData().getDatas();
-            homeAdapter.addData(homepageList);
+            homeAdapter.replaceData(homeArticleBean.getData().getDatas());
         } else {
-            homepageList.addAll(homeArticleBean.getData().getDatas());
-            homeAdapter.replaceData(homepageList);
+            if (homeAdapter.getItemCount()>=homeArticleBean.getData().getTotal()){
+                smartRefresh.finishLoadMore(1000,true,true);
+            }
+            homeAdapter.addData(homeArticleBean.getData().getDatas());
         }
 
     }
 
     @Override
+    public void showEmptyView() {
+        View view = LayoutInflater.from(homeActivity).inflate(R.layout.empty_view, null);
+        View viewById = view.findViewById(R.id.reload);
+        viewById.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPresenter.initBannerData();
+                mPresenter.initHomeArticleData(0, true);
+            }
+        });
+        homeAdapter.setEmptyView(view);
+    }
+
+    @Override
     public void showApiErrorMsg(String s) {
-        AppToast.toast(s);
+        WanAndroidToast.toast(s);
     }
 
     @Override
@@ -207,13 +221,12 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
         mPresenter.loadMore();
-        refreshLayout.finishLoadMore(1500);
+        refreshLayout.finishLoadMore(1000);
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        homepageList.clear();
         mPresenter.refresh();
-        refreshLayout.finishRefresh(1500);
+        refreshLayout.finishRefresh(1000);
     }
 }

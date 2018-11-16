@@ -15,6 +15,12 @@ public class Constants {
 
    public static final int PROJECT=0x03;
 
+   public static final int NAVI=0x04;
+
    public static final String BUGLY_APPID="7cdf7e5a9b";
 
+   public static class Event{
+
+      public static final String POSTCID="postcid";
+   }
 }

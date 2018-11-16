@@ -52,6 +52,9 @@ implements HomePageContract.Presenter{
                                 .getString(R.string.home_article_error)) {
                     @Override
                     public void onNext(HomeArticleBean homeArticleBean) {
+                        if (homeArticleBean==null){
+                            mView.showEmptyView();
+                        }
                         mView.showHomeArticleList(homeArticleBean,isRefresh);
                         if (AppUtils.nonEmpty(homeArticleBean.getErrorMsg())) {
                             mView.showErrorCodeMsg(homeArticleBean.getErrorMsg());

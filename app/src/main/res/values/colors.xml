@@ -6,4 +6,8 @@
     <color name="color_white">#ffffff</color>
     <color name="blank">#000000</color>
     <color name="colorCard">#efe8e8</color>
+    <color name="tab_back">#e6d7d7</color>
+    <color name="light_blank">#bcbcba</color>
+    <color name="setting_text">#5b5d5c</color>
+    <color name="shape2">#00af9d</color>
 </resources>

@@ -2,29 +2,30 @@ package com.scy.wanandroid.ui;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.scy.wanandroid.R;
 import com.scy.wanandroid.adapter.KnowledgeAdapter;
 import com.scy.wanandroid.base.BaseFragment;
+import com.scy.wanandroid.constants.IntentKey;
 import com.scy.wanandroid.contract.KnowledgeContract;
 import com.scy.wanandroid.entity.KnowledgeBean;
 import com.scy.wanandroid.presenter.KnowledgePresenter;
-import com.scy.wanandroid.utils.AppToast;
-import com.scy.wanandroid.utils.AppUtils;
+import com.scy.wanandroid.utils.WanAndroidToast;
 import com.scy.wanandroid.utils.WanAndroidDialog;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 
 /**
@@ -50,6 +51,8 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
     SmartRefreshLayout knowledgeRefresh;
     @BindView(R.id.knowledgeRecycler)
     RecyclerView knowledgeRecycler;
+    @BindView(R.id.footer)
+    ClassicsFooter footer;
     private KnowledgeAdapter adapter;
     private HomeActivity context;
     private List<KnowledgeBean.DataBean> list = new ArrayList<>();
@@ -73,9 +76,13 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
+                Intent intent=new Intent(context,KnowledgeDetailActivity.class);
+                intent.putExtra(IntentKey.KNOWLEDGE_DETAIL, (Serializable) adapter.getData().get(position));
+                startActivity(intent);
             }
         });
+
+        footer.setNoMoreData(true);
     }
 
 
@@ -95,7 +102,7 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
 
     @Override
     public void showApiErrorMsg(String s) {
-        AppToast.toast(s);
+        WanAndroidToast.toast(s);
     }
 
     @Override
@@ -116,4 +123,5 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
         mPresenter.refresh();
         refreshLayout.finishRefresh(1500);
     }
+
 }

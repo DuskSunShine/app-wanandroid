@@ -1,15 +1,16 @@
 package com.scy.wanandroid.http;
 
 
-import com.scy.wanandroid.base.BaseResponse;
+
 import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.entity.KnowledgeBean;
+import com.scy.wanandroid.entity.KnowledgeDetail;
 import com.scy.wanandroid.entity.RegisterBean;
+import com.scy.wanandroid.entity.WXArticles;
+import com.scy.wanandroid.entity.WxArticlesDetail;
 
 import io.reactivex.Observable;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -57,5 +58,32 @@ public interface HttpService {
     @GET("/tree/json")
     Observable<KnowledgeBean> getKnowledgeList();
 
+    /**
+     * 知识体系下的文章
+     * http://www.wanandroid.com/article/list/0/json?cid=60
+     *
+     * @param page page num
+     * @param cid second page id
+     * @return 知识体系数据
+     */
+    @GET("/article/list/{page}/json")
+    Observable<KnowledgeDetail> getKnowledgeDetail(@Path("page") int page,
+                                                   @Query("cid") int cid);
 
+    /**
+     * 获取公众号列表
+     * @return
+     */
+    @GET("/wxarticle/chapters/json")
+    Observable<WXArticles> getWxArticles();
+
+    /**
+     * 查看某个公众号历史数据
+     * @param wxArticleID
+     * @param page
+     * @return
+     */
+    @GET("/wxarticle/list/{wxArticleID}/{page}/json")
+    Observable<WxArticlesDetail> getWxArticlesDetail(@Path("wxArticleID") int wxArticleID,
+                                                     @Path("page") int page);
 }

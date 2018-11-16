@@ -25,6 +25,11 @@ public abstract class BaseObserver<T> extends ResourceObserver<T> {
         this.mErrorMsg = errorMsg;
     }
 
+    protected BaseObserver(AbsView view, int resId){
+        this.mView = view;
+        this.mErrorMsg = WanAndroidApp.getWanAndroidApp().getString(resId);
+    }
+
     @Override
     public void onComplete() {
 

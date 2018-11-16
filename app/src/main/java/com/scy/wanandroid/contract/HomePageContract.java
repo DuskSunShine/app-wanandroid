@@ -15,6 +15,8 @@ public interface HomePageContract {
         void showBanner(BannerBean bannerBean);
 
         void showHomeArticleList(HomeArticleBean homeArticleBean,boolean isRefresh);
+
+        void showEmptyView();
     }
 
     interface Presenter extends AbsPresenter<HomePageView>{
@@ -37,5 +39,6 @@ public interface HomePageContract {
          * 加载更多
          */
         void loadMore();
+
     }
 }

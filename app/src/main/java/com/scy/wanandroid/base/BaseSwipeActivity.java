@@ -40,7 +40,7 @@ public abstract class BaseSwipeActivity<P extends AbsPresenter> extends SwipeBac
         int phoneWidth = dm.widthPixels;
 
         //set scroll size,default is 50dip,屏幕一半的位置就可以滑动销毁
-        mSwipeBackLayout.setEdgeSize(phoneWidth / 2);
+        //mSwipeBackLayout.setEdgeSize(phoneWidth / 2);
 
         AppManager.getInstance().addActivity(this);
 

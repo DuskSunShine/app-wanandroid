@@ -12,17 +12,17 @@ import com.scy.wanandroid.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WeChatSubFragment extends Fragment {
+public class NavigationFragment extends Fragment {
 
-    private static WeChatSubFragment weChatSubFragment = null;
+    private static NavigationFragment navigationFragment=null;
 
-    public static WeChatSubFragment create() {
-        if (weChatSubFragment == null) {
-            weChatSubFragment = new WeChatSubFragment();
+    public static NavigationFragment create(){
+        if (navigationFragment==null){
+            navigationFragment=new NavigationFragment();
         }
-        return weChatSubFragment;
+        return navigationFragment;
     }
-    public WeChatSubFragment() {
+    public NavigationFragment() {
         // Required empty public constructor
     }
 
@@ -31,7 +31,7 @@ public class WeChatSubFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_we_chat_sub, container, false);
+        return inflater.inflate(R.layout.fragment_navigation, container, false);
     }
 
 }

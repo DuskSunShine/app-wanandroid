@@ -1,15 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.WeChatSubFragment"
-    android:background="#829383">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    android:layout_height="match_parent">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-</FrameLayout>
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/wxArticles_tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            app:tl_indicator_color="@color/colorPrimary"
+            app:tl_indicator_margin_left="2dp"
+            app:tl_indicator_margin_right="2dp"
+            app:tl_indicator_style="BLOCK"
+            android:background="@color/tab_back"
+            app:tl_textSelectColor="@color/color_white"
+            app:tl_textUnselectColor="@color/blank"
+            app:tl_textAllCaps="false"
+            app:tl_textBold="BOTH"
+            app:tl_textsize="@dimen/sp_14" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/wxArticles_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
+    </LinearLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -4,7 +4,8 @@
     package="com.scy.wanandroid">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".WanAndroidApp"
         android:allowBackup="true"
@@ -21,11 +22,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.HomeActivity"/>
-        <activity android:name=".ui.WebActivity"
-            android:hardwareAccelerated="true"
+        <activity android:name=".ui.HomeActivity" />
+        <activity
+            android:name=".ui.WebActivity"
             android:configChanges="orientation|screenSize"
-            android:theme="@style/ActivitySwipeTheme"></activity>
+            android:hardwareAccelerated="true"
+            android:theme="@style/ActivitySwipeTheme" />
+        <activity android:name=".ui.KnowledgeDetailActivity"></activity>
     </application>
 
 </manifest>

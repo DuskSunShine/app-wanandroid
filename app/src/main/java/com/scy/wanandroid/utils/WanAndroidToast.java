@@ -12,7 +12,7 @@ import com.scy.wanandroid.WanAndroidApp;
 /**
  * Created by SCY on 2018/9/28 at 10:12.
  */
-public class AppToast {
+public class WanAndroidToast {
 
 
     /**

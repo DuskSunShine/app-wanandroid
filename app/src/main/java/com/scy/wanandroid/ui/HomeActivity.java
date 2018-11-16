@@ -8,9 +8,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.AppCompatTextView;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 
 import com.scy.wanandroid.R;
 import com.scy.wanandroid.base.BaseActivity;
@@ -22,6 +22,7 @@ import com.scy.wanandroid.utils.AppUtils;
 import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class HomeActivity extends BaseActivity<MainPresenter>
@@ -35,9 +36,9 @@ public class HomeActivity extends BaseActivity<MainPresenter>
 
     private HomeFragment homeFragment;
     private KnowledgeFragment knowledgeFragment;
-    private WeChatSubFragment weChatSubFragment;
+    private WXArticlesFragment WXArticlesFragment;
     private ProjectFragment projectFragment;
-
+    private NavigationFragment navigationFragment;
     @SuppressLint("UseSparseArrays")
     private HashMap<Integer, Fragment> fragments = new HashMap<>();
 
@@ -57,13 +58,17 @@ public class HomeActivity extends BaseActivity<MainPresenter>
             knowledgeFragment = KnowledgeFragment.create();
             fragments.put(Constants.KNOWLEDGE, knowledgeFragment);
         }
-        if (AppUtils.isNull(weChatSubFragment)) {
-            weChatSubFragment = WeChatSubFragment.create();
-            fragments.put(Constants.WECHATSUB, weChatSubFragment);
+        if (AppUtils.isNull(WXArticlesFragment)) {
+            WXArticlesFragment = WXArticlesFragment.create();
+            fragments.put(Constants.WECHATSUB, WXArticlesFragment);
         }
         if (AppUtils.isNull(projectFragment)) {
             projectFragment = ProjectFragment.create();
             fragments.put(Constants.PROJECT, projectFragment);
+        }
+        if (AppUtils.isNull(navigationFragment)) {
+            navigationFragment = NavigationFragment.create();
+            fragments.put(Constants.NAVI, navigationFragment);
         }
         navigation.setOnNavigationItemSelectedListener(this);
         return new MainPresenter();
@@ -91,12 +96,14 @@ public class HomeActivity extends BaseActivity<MainPresenter>
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.frameLayout, homeFragment);
         transaction.add(R.id.frameLayout, knowledgeFragment);
-        transaction.add(R.id.frameLayout, weChatSubFragment);
+        transaction.add(R.id.frameLayout, WXArticlesFragment);
         transaction.add(R.id.frameLayout, projectFragment);
+        transaction.add(R.id.frameLayout, navigationFragment);
         transaction.hide(homeFragment);
         transaction.hide(knowledgeFragment);
-        transaction.hide(weChatSubFragment);
+        transaction.hide(WXArticlesFragment);
         transaction.hide(projectFragment);
+        transaction.hide(navigationFragment);
         transaction.commitAllowingStateLoss();
     }
 
@@ -133,7 +140,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                 main_title.setText(R.string.title_notification);
                 break;
             case Constants.WECHATSUB:
-                transaction.show(weChatSubFragment);
+                transaction.show(WXArticlesFragment);
                 for (int f : hide) {
                     if (AppUtils.nonNull(fragments.get(f))) {
                         transaction.hide(fragments.get(f));
@@ -141,6 +148,15 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                 }
                 main_title.setText(R.string.title_notifications);
                 break;
+                case Constants.NAVI:
+                    transaction.show(navigationFragment);
+                    for (int f : hide) {
+                        if (AppUtils.nonNull(fragments.get(f))) {
+                            transaction.hide(fragments.get(f));
+                        }
+                    }
+                    main_title.setText(R.string.navi);
+                    break;
         }
         transaction.commitAllowingStateLoss();
     }
@@ -151,19 +167,23 @@ public class HomeActivity extends BaseActivity<MainPresenter>
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 showFragment(Constants.HOME, Constants.KNOWLEDGE,
-                        Constants.PROJECT, Constants.WECHATSUB);
+                        Constants.PROJECT, Constants.WECHATSUB,Constants.NAVI);
                 return true;
             case R.id.navigation_knowledge:
                 showFragment(Constants.KNOWLEDGE, Constants.HOME,
-                        Constants.PROJECT, Constants.WECHATSUB);
+                        Constants.PROJECT, Constants.WECHATSUB,Constants.NAVI);
                 return true;
             case R.id.navigation_wechatSub:
                 showFragment(Constants.WECHATSUB, Constants.KNOWLEDGE,
-                        Constants.PROJECT, Constants.HOME);
+                        Constants.PROJECT, Constants.HOME,Constants.NAVI);
                 return true;
             case R.id.navigation_project:
                 showFragment(Constants.PROJECT, Constants.KNOWLEDGE,
-                        Constants.HOME, Constants.WECHATSUB);
+                        Constants.HOME, Constants.WECHATSUB,Constants.NAVI);
+                return true;
+                case R.id.navigation_navi:
+                showFragment(Constants.NAVI, Constants.KNOWLEDGE,
+                        Constants.HOME, Constants.WECHATSUB,Constants.PROJECT);
                 return true;
         }
         return false;
@@ -177,5 +197,10 @@ public class HomeActivity extends BaseActivity<MainPresenter>
     @Override
     public void showErrorCodeMsg(String s) {
 
+    }
+
+    @OnClick(R.id.drawer)
+    protected void drawerClick(){
+        drawer.openDrawer(Gravity.START);
     }
 }

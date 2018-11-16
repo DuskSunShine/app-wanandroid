@@ -18,6 +18,7 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_56"
+                app:contentInsetStart="@dimen/dp_8"
                 android:layout_gravity="center"
                 app:layout_scrollFlags="scroll|enterAlways">
 
@@ -50,8 +51,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:background="?android:attr/windowBackground"
+                android:background="@color/colorPrimaryDark"
                 app:menu="@menu/navigation"
+                app:labelVisibilityMode="labeled"
+                app:itemIconTint="@drawable/home_navi_item_selector"
+                app:itemTextColor="@drawable/home_navi_item_selector"
                 app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"/>
     </android.support.design.widget.CoordinatorLayout>
 

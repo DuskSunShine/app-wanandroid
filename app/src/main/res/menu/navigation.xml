@@ -18,6 +18,10 @@
         android:id="@+id/navigation_project"
         android:icon="@drawable/ic_library_books_black_24dp"
         android:title="@string/title_notification" />
+    <item
+        android:id="@+id/navigation_navi"
+        android:icon="@drawable/ic_navigation_black_24dp"
+        android:title="@string/navi" />
 
 
 </menu>
