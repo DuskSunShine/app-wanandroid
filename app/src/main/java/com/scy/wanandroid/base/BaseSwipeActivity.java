@@ -26,7 +26,8 @@ public abstract class BaseSwipeActivity<P extends AbsPresenter> extends SwipeBac
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        //huawei 8.0 shutdown
+        //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(getContentViewId());
         unBinder=ButterKnife.bind(this);
         mSwipeBackLayout = getSwipeBackLayout();
