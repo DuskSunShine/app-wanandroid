@@ -3,86 +3,90 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".ui.knowledge.KnowledgeDetailActivity">
+    tools:context=".ui.X5WebActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
-            app:contentInsetStart="@dimen/dp_8"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_56"
-            android:layout_gravity="center"
-            app:layout_scrollFlags="scroll|enterAlways">
+            app:contentInsetStart="@dimen/dp_8"
+            app:layout_scrollFlags="scroll|enterAlways"
+            android:background="@color/colorPrimaryDark"
+            android:layout_gravity="center">
 
             <android.support.constraint.ConstraintLayout
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/knowledge_detail_back"
+                    android:id="@+id/drawer_switch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/arrow_left_android"
+                    android:src="@mipmap/arrow_left_android"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <android.support.v7.widget.AppCompatTextView
-                    android:id="@+id/knowledge_detail_title"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/main_title"
+                    android:layout_width="0dp"
+                    android:gravity="center"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/sp_16"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/blank"
                     android:textStyle="bold"
+                    app:autoSizeTextType="uniform"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/img_search_tab1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/drawer_switch"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="WanAndroid" />
+
+
+                <ImageView
+                    android:id="@+id/img_search_tab1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
+                    android:src="@mipmap/icon_search"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </android.support.constraint.ConstraintLayout>
 
         </android.support.v7.widget.Toolbar>
-
     </android.support.design.widget.AppBarLayout>
 
 
-    <LinearLayout
+
+
+   <!-- <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <com.flyco.tablayout.SlidingTabLayout
-            android:id="@+id/knowledge_detail_tabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            app:tl_indicator_color="@color/colorPrimary"
-            app:tl_indicator_margin_left="2dp"
-            app:tl_indicator_margin_right="2dp"
-            app:tl_indicator_style="BLOCK"
-            android:background="@color/tab_back"
-            app:tl_textSelectColor="@color/color_white"
-            app:tl_textUnselectColor="@color/blank"
-            app:tl_textAllCaps="false"
-            app:tl_textBold="BOTH"
-            app:tl_textsize="@dimen/sp_14" />
-
-        <android.support.v4.view.ViewPager
-            android:id="@+id/knowledge_detail_viewpager"
+        >-->
+        <com.scy.wanandroid.widget.X5WebView
+            android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white" />
-    </LinearLayout>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </com.scy.wanandroid.widget.X5WebView>
+    <!--</android.support.v4.widget.NestedScrollView>-->
+
+
+
 
 </android.support.design.widget.CoordinatorLayout>

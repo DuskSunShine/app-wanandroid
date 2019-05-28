@@ -16,6 +16,7 @@ import com.scy.wanandroid.contract.WebViewContract;
 import com.scy.wanandroid.presenter.WebViewPresenter;
 
 import butterknife.BindView;
+import me.logg.Logg;
 
 
 public class WebActivity extends BaseSwipeActivity<WebViewPresenter>
@@ -75,6 +76,7 @@ public class WebActivity extends BaseSwipeActivity<WebViewPresenter>
         if (intent != null) {
             url = intent.getStringExtra(IntentKey.WEB_URL);
             title = intent.getStringExtra(IntentKey.TITLE);
+            Logg.i("WebActivity url   "+url);
         }
     }
 

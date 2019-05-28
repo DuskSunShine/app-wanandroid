@@ -6,20 +6,16 @@ import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.scy.wanandroid.R;
 import com.scy.wanandroid.utils.AppManager;
-
-import java.util.Objects;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import me.logg.Logg;
 
 
 public abstract class BaseActivity<P extends AbsPresenter>
@@ -32,23 +28,24 @@ public abstract class BaseActivity<P extends AbsPresenter>
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        setContentView(getContentViewId());
+        setContentView(getLayoutId());
         unBinder=ButterKnife.bind(this);
         if (getSupportActionBar()!=null){
             getSupportActionBar().hide();
         }
         AppManager.getInstance().addActivity(this);
+        Logg.i("Activity"+AppManager.getInstance().getTopActivity());
         mPresenter=createPresenter();
 
         if (mPresenter!=null) {
             mPresenter.attachView(this);
         }else {
-            throw  new NullPointerException(mPresenter.getClass().getSimpleName()+"未创建");
+            throw  new NullPointerException(getClass().getSimpleName()+"未创建Presenter,无法交互");
         }
         initDataAndEvents();
 
     }
-    public abstract int getContentViewId();
+    public abstract int getLayoutId();
 
     public abstract P createPresenter();
 

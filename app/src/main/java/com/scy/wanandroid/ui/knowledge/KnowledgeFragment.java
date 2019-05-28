@@ -1,4 +1,4 @@
-package com.scy.wanandroid.ui;
+package com.scy.wanandroid.ui.knowledge;
 
 
 import android.content.Context;
@@ -20,6 +20,7 @@ import com.scy.wanandroid.constants.IntentKey;
 import com.scy.wanandroid.contract.KnowledgeContract;
 import com.scy.wanandroid.entity.KnowledgeBean;
 import com.scy.wanandroid.presenter.KnowledgePresenter;
+import com.scy.wanandroid.ui.home.HomeActivity;
 import com.scy.wanandroid.utils.WanAndroidToast;
 import com.scy.wanandroid.utils.WanAndroidDialog;
 
@@ -63,7 +64,7 @@ public class KnowledgeFragment extends BaseFragment<KnowledgePresenter>
     }
 
     @Override
-    protected int onCreateView() {
+    protected int getLayoutId() {
         return R.layout.fragment_knowledge;
     }
 

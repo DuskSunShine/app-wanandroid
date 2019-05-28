@@ -1,4 +1,4 @@
-package com.scy.wanandroid.ui;
+package com.scy.wanandroid.ui.wechat;
 
 
 import android.annotation.SuppressLint;
@@ -16,6 +16,7 @@ import com.scy.wanandroid.base.BaseFragment;
 import com.scy.wanandroid.contract.WeChatSubContract;
 import com.scy.wanandroid.entity.WXArticles;
 import com.scy.wanandroid.presenter.WeChatSubPresenter;
+import com.scy.wanandroid.ui.home.HomeActivity;
 import com.scy.wanandroid.utils.WanAndroidToast;
 import com.scy.wanandroid.utils.WanAndroidDialog;
 
@@ -65,7 +66,7 @@ implements WeChatSubContract.View {
     }
 
     @Override
-    protected int onCreateView() {
+    protected int getLayoutId() {
         return R.layout.fragment_we_chat_sub;
     }
 
@@ -121,6 +122,7 @@ implements WeChatSubContract.View {
 
             @Override
             public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+                //防止每次都从新加载
                 //super.destroyItem(container, position, object);
             }
         });

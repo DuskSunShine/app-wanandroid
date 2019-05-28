@@ -9,13 +9,14 @@ import com.scy.wanandroid.R;
 import com.scy.wanandroid.base.BaseActivity;
 import com.scy.wanandroid.contract.SplashContract;
 import com.scy.wanandroid.presenter.SplashPresenter;
+import com.scy.wanandroid.ui.home.HomeActivity;
 
 public class SplashActivity extends BaseActivity<SplashPresenter>
         implements SplashContract.SplashView {
 
 
     @Override
-    public int getContentViewId() {
+    public int getLayoutId() {
         return R.layout.activity_splash;
     }
 
@@ -32,7 +33,7 @@ public class SplashActivity extends BaseActivity<SplashPresenter>
 
     @Override
     public void startMainActivity() {
-        startActivity(new Intent(this,HomeActivity.class));
+        startActivity(new Intent(this, HomeActivity.class));
         finish();
     }
 

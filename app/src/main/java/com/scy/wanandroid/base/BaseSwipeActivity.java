@@ -13,6 +13,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import me.imid.swipebacklayout.lib.SwipeBackLayout;
 import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
+import me.logg.Logg;
 
 /**
  * Created on 2017/7/27 0027.
@@ -44,6 +45,7 @@ public abstract class BaseSwipeActivity<P extends AbsPresenter> extends SwipeBac
         //mSwipeBackLayout.setEdgeSize(phoneWidth / 2);
 
         AppManager.getInstance().addActivity(this);
+        Logg.i("Activity"+AppManager.getInstance().getTopActivity());
 
         if (getSupportActionBar()!=null){
             getSupportActionBar().hide();
@@ -65,13 +67,6 @@ public abstract class BaseSwipeActivity<P extends AbsPresenter> extends SwipeBac
     public abstract void initDataAndEvents();
 
 
-
-    /**
-     * It doesn't have to be forced findviewbyid
-     */
-    public <T extends View> T findViewByIdNoCast(int id) {
-        return (T) findViewById(id);
-    }
 
     public void setOnClick(int... ids) {
         for (int id : ids)

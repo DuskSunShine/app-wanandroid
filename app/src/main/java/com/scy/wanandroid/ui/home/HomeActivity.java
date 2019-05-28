@@ -1,4 +1,4 @@
-package com.scy.wanandroid.ui;
+package com.scy.wanandroid.ui.home;
 
 import android.annotation.SuppressLint;
 import android.support.annotation.NonNull;
@@ -17,6 +17,9 @@ import com.scy.wanandroid.base.BaseActivity;
 import com.scy.wanandroid.constants.Constants;
 import com.scy.wanandroid.contract.MainContract;
 import com.scy.wanandroid.presenter.MainPresenter;
+import com.scy.wanandroid.ui.knowledge.KnowledgeFragment;
+import com.scy.wanandroid.ui.NavigationFragment;
+import com.scy.wanandroid.ui.project.ProjectFragment;
 import com.scy.wanandroid.utils.AppUtils;
 
 import java.util.HashMap;
@@ -36,7 +39,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
 
     private HomeFragment homeFragment;
     private KnowledgeFragment knowledgeFragment;
-    private WXArticlesFragment WXArticlesFragment;
+    private com.scy.wanandroid.ui.wechat.WXArticlesFragment WXArticlesFragment;
     private ProjectFragment projectFragment;
     private NavigationFragment navigationFragment;
     @SuppressLint("UseSparseArrays")
@@ -44,7 +47,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
 
 
     @Override
-    public int getContentViewId() {
+    public int getLayoutId() {
         return R.layout.activity_home;
     }
 

@@ -1,4 +1,4 @@
-package com.scy.wanandroid.ui;
+package com.scy.wanandroid.ui.wechat;
 
 
 import android.annotation.SuppressLint;
@@ -19,6 +19,7 @@ import com.scy.wanandroid.base.BaseFragment;
 import com.scy.wanandroid.contract.WxArticlesDetailContract;
 import com.scy.wanandroid.entity.WxArticlesDetail;
 import com.scy.wanandroid.presenter.WxArticlesDetailPresenter;
+import com.scy.wanandroid.ui.home.HomeActivity;
 import com.scy.wanandroid.utils.WanAndroidToast;
 import com.scy.wanandroid.utils.WanAndroidDialog;
 
@@ -69,7 +70,7 @@ implements WxArticlesDetailContract.View ,OnRefreshLoadMoreListener {
     }
 
     @Override
-    protected int onCreateView() {
+    protected int getLayoutId() {
         return R.layout.fragment_wx_articles_detail;
     }
 
@@ -120,6 +121,7 @@ implements WxArticlesDetailContract.View ,OnRefreshLoadMoreListener {
         }else {
             if (detailAdapter.getItemCount()>=wxArticlesDetail.getData().getTotal()){
                 smartRefreshLayout.finishLoadMore(1000,true,true);
+                return;
             }
             detailAdapter.addData(wxArticlesDetail.getData().getDatas());
         }

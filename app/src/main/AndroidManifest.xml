@@ -15,6 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".ui.X5WebActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize"></activity>
         <activity android:name=".ui.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,13 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.HomeActivity" />
+        <activity android:name=".ui.home.HomeActivity" />
         <activity
             android:name=".ui.WebActivity"
             android:configChanges="orientation|screenSize"
             android:hardwareAccelerated="true"
             android:theme="@style/ActivitySwipeTheme" />
-        <activity android:name=".ui.KnowledgeDetailActivity"></activity>
+        <activity android:name=".ui.knowledge.KnowledgeDetailActivity" />
     </application>
 
 </manifest>

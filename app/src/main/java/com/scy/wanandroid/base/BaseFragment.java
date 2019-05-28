@@ -8,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Objects;
-
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -29,7 +27,7 @@ public abstract class BaseFragment<P extends AbsPresenter>
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (rootView == null) {
-            rootView = inflater.inflate(onCreateView(), container, false);
+            rootView = inflater.inflate(getLayoutId(), container, false);
         }
 
         ViewGroup parent = (ViewGroup) rootView.getParent();
@@ -46,6 +44,8 @@ public abstract class BaseFragment<P extends AbsPresenter>
 
         if (mPresenter!=null) {
             mPresenter.attachView(this);
+        }else {
+            throw  new NullPointerException(getClass().getSimpleName()+"未创建Presenter,无法交互");
         }
         initDataAndEvents();
     }
@@ -55,7 +55,7 @@ public abstract class BaseFragment<P extends AbsPresenter>
 
     //protected abstract void providePresenter(P absPresenter);
 
-    protected abstract int onCreateView();
+    protected abstract int getLayoutId();
 
     protected abstract void initDataAndEvents();
     @Override

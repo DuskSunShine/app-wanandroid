@@ -1,4 +1,4 @@
-package com.scy.wanandroid.ui;
+package com.scy.wanandroid.ui.knowledge;
 
 
 import android.annotation.SuppressLint;
@@ -71,7 +71,7 @@ implements KnowledgeDetailContract.View,OnRefreshLoadMoreListener {
     }
 
     @Override
-    protected int onCreateView() {
+    protected int getLayoutId() {
         return R.layout.fragment_knowledge_detail;
     }
 
@@ -143,6 +143,7 @@ implements KnowledgeDetailContract.View,OnRefreshLoadMoreListener {
             //dataBeanList.addAll(knowledgeDetail.getData().getDatas());
             if (knowledgeAdapter.getItemCount()>=knowledgeDetail.getData().getTotal()){
                 refreshLayout.finishLoadMore(1000,true,true);
+                return;
             }
             knowledgeAdapter.addData(knowledgeDetail.getData().getDatas());
         }

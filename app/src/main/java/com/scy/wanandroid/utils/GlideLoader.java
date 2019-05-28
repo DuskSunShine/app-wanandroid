@@ -1,5 +1,6 @@
 package com.scy.wanandroid.utils;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
 import android.graphics.Bitmap;
@@ -30,11 +31,14 @@ import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOption
 
 public class GlideLoader {
 
-    public static void loadImage(Context context, ImageView iv, String url, int errorImg, int emptyImg) {
+    @SuppressLint("CheckResult")
+    public static void loadImage(Context context, ImageView iv, String url, int errorImg, int emptyImg, boolean override) {
         RequestOptions requestOptions = new RequestOptions()
-                .override(iv.getWidth(), iv.getHeight())
                 .placeholder(emptyImg)
                 .error(errorImg);
+        if (override){
+            requestOptions.override(iv.getWidth(), iv.getHeight());
+        }
         Glide.with(context).load(url).transition(withCrossFade()).apply(requestOptions).into(iv);
     }
     public static void loadImage(Context context, ImageView iv, String url) {

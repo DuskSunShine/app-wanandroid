@@ -6,7 +6,7 @@
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.HomeActivity"
+    tools:context=".ui.home.HomeActivity"
     tools:openDrawer="end">
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -43,6 +43,7 @@
                 android:layout_marginBottom="60dp"
                 android:layout_marginEnd="@dimen/dp_8"
                 android:layout_gravity="bottom|end"
+                app:srcCompat="@drawable/ic_arrow_upward_black_24dp"
                 app:layout_behavior="@string/fab_scroll_down_show_behavior"
                 app:layout_constraintBottom_toTopOf="@+id/navigation"
                 app:layout_constraintEnd_toEndOf="parent" />

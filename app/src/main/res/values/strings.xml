@@ -19,4 +19,6 @@
     <string name="wx_detail_error">公众号详细获取失败</string>
     <string name="error_tips">加载数据失败ヽ(≧Д≦)ノ\n 可能的原因：\n1.请检查您的网络是否通畅\n 2.服务器出现未知问题\n 3.WanAndroid客户端出现bug~</string>
     <string name="reload">重新加载ヽ(≧Д≦)ノ</string>
+    <string name="project_error">项目tab获取失败</string>
+    <string name="project_list_error">项目列表获取失败</string>
 </resources>

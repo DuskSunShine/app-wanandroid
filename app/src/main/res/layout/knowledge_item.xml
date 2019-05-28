@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
-    tools:context=".ui.KnowledgeFragment"
+    tools:context=".ui.knowledge.KnowledgeFragment"
     android:layout_marginBottom="@dimen/dp_4"
     android:layout_marginTop="@dimen/dp_4"
     android:layout_marginStart="@dimen/dp_8"

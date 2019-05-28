@@ -4,6 +4,8 @@ import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.entity.KnowledgeBean;
 import com.scy.wanandroid.entity.KnowledgeDetail;
+import com.scy.wanandroid.entity.ProjectBean;
+import com.scy.wanandroid.entity.ProjectList;
 import com.scy.wanandroid.entity.RegisterBean;
 import com.scy.wanandroid.entity.WXArticles;
 import com.scy.wanandroid.entity.WxArticlesDetail;
@@ -65,6 +67,16 @@ public class DataManager implements HttpService {
     @Override
     public Observable<WxArticlesDetail> getWxArticlesDetail(int wxArticleID, int page) {
         return WanAndroidHttpClient.create().getWxArticlesDetail(wxArticleID,page);
+    }
+
+    @Override
+    public Observable<ProjectBean> getProjectTab() {
+        return WanAndroidHttpClient.create().getProjectTab();
+    }
+
+    @Override
+    public Observable<ProjectList> getProjectList(int page, int cid) {
+        return WanAndroidHttpClient.create().getProjectList(page, cid);
     }
 
 }

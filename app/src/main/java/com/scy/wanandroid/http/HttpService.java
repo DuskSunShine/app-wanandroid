@@ -6,6 +6,8 @@ import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.entity.KnowledgeBean;
 import com.scy.wanandroid.entity.KnowledgeDetail;
+import com.scy.wanandroid.entity.ProjectBean;
+import com.scy.wanandroid.entity.ProjectList;
 import com.scy.wanandroid.entity.RegisterBean;
 import com.scy.wanandroid.entity.WXArticles;
 import com.scy.wanandroid.entity.WxArticlesDetail;
@@ -86,4 +88,23 @@ public interface HttpService {
     @GET("/wxarticle/list/{wxArticleID}/{page}/json")
     Observable<WxArticlesDetail> getWxArticlesDetail(@Path("wxArticleID") int wxArticleID,
                                                      @Path("page") int page);
+
+    /**
+     * 项目分类
+     * https://www.wanandroid.com/project/tree/json
+     * @return
+     */
+    @GET("/project/tree/json")
+    Observable<ProjectBean> getProjectTab();
+
+    /**
+     *  项目列表数据
+     * 某一个分类下项目列表数据，分页展示
+     * @param page
+     * @param cid
+     * @return
+     */
+    @GET("/project/list/{page}/json")
+    Observable<ProjectList> getProjectList(@Path("page") int page,
+                                           @Query("cid") int cid);
 }

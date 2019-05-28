@@ -1,4 +1,4 @@
-package com.scy.wanandroid.ui;
+package com.scy.wanandroid.ui.home;
 
 
 import android.annotation.SuppressLint;
@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -76,7 +75,7 @@ public class HomeFragment extends BaseFragment<HomePagePresenter>
     }
 
     @Override
-    protected int onCreateView() {
+    protected int getLayoutId() {
         return R.layout.fragment_home;
     }
 

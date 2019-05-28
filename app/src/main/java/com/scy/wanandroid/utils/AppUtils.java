@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import com.scy.wanandroid.R;
 import com.scy.wanandroid.constants.IntentKey;
 import com.scy.wanandroid.ui.WebActivity;
+import com.scy.wanandroid.ui.X5WebActivity;
 
 import java.util.Random;
 
@@ -51,7 +52,7 @@ public class AppUtils {
      * @param url
      */
     public static void goWebView(Activity activity,String url,String title){
-        Intent intent=new Intent(activity,WebActivity.class);
+        Intent intent=new Intent(activity, X5WebActivity.class);
         intent.putExtra(IntentKey.WEB_URL,url);
         intent.putExtra(IntentKey.TITLE,title);
         activity.startActivity(intent);
