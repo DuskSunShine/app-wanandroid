@@ -1,6 +1,7 @@
 package com.scy.wanandroid.http;
 
 
+import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.scy.wanandroid.constants.Constants;
 
 import java.util.concurrent.TimeUnit;
@@ -23,6 +24,8 @@ public class WanAndroidHttpClient {
                     .readTimeout(10, TimeUnit.SECONDS)
                     .writeTimeout(10, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true)
+                    .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BASIC))
+                    .addNetworkInterceptor(new StethoInterceptor())
                     .build();
             Retrofit retrofit = new Retrofit.Builder()
                     .client(okHttpClient)

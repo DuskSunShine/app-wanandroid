@@ -6,6 +6,7 @@ import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.entity.KnowledgeBean;
 import com.scy.wanandroid.entity.KnowledgeDetail;
+import com.scy.wanandroid.entity.NavigationListData;
 import com.scy.wanandroid.entity.ProjectBean;
 import com.scy.wanandroid.entity.ProjectList;
 import com.scy.wanandroid.entity.RegisterBean;
@@ -107,4 +108,11 @@ public interface HttpService {
     @GET("/project/list/{page}/json")
     Observable<ProjectList> getProjectList(@Path("page") int page,
                                            @Query("cid") int cid);
+
+    /**
+     * 导航数据
+     * @return
+     */
+    @GET("/navi/json")
+    Observable<NavigationListData> getNaviList();
 }

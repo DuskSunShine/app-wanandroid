@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.text.TextUtils;
 
 import com.scy.wanandroid.R;
+import com.scy.wanandroid.WanAndroidApp;
 import com.scy.wanandroid.constants.IntentKey;
 import com.scy.wanandroid.ui.WebActivity;
 import com.scy.wanandroid.ui.X5WebActivity;
@@ -69,5 +70,10 @@ public class AppUtils {
         int blue =random.nextInt(150);
         //使用rgb混合生成一种新的颜色,Color.rgb生成的是一个int数
         return Color.rgb(red,green, blue);
+    }
+
+    public static int dp2px(float dpValue) {
+        final float scale = WanAndroidApp.getWanAndroidApp().getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 }

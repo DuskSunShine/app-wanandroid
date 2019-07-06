@@ -202,7 +202,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
 
     }
 
-    @OnClick(R.id.drawer)
+    @OnClick(R.id.drawer_switch)
     protected void drawerClick(){
         drawer.openDrawer(Gravity.START);
     }

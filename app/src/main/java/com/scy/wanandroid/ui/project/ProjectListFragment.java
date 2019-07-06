@@ -113,7 +113,6 @@ public class ProjectListFragment extends BaseFragment<ProjectListPresenter> impl
         }else {
             if (adapter.getItemCount()>=projectList.getData().getTotal()){
                 refreshLayout.finishLoadMore(1000,true,true);
-                return;
             }
             adapter.addData(projectList.getData().getDatas());
         }

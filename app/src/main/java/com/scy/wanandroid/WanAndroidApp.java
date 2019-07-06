@@ -3,6 +3,7 @@ package com.scy.wanandroid;
 import android.app.Application;
 
 import com.bumptech.glide.Glide;
+import com.facebook.stetho.Stetho;
 import com.scy.wanandroid.constants.Constants;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
@@ -24,6 +25,9 @@ public class WanAndroidApp extends Application {
         wanAndroidApp=this;
         initLog();
         initX5();
+        if (BuildConfig.DEBUG) {
+            Stetho.initializeWithDefaults(this);
+        }
         CrashReport.initCrashReport(this,Constants.BUGLY_APPID,false);
     }
 

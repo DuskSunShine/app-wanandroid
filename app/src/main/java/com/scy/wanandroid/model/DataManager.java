@@ -4,6 +4,7 @@ import com.scy.wanandroid.entity.BannerBean;
 import com.scy.wanandroid.entity.HomeArticleBean;
 import com.scy.wanandroid.entity.KnowledgeBean;
 import com.scy.wanandroid.entity.KnowledgeDetail;
+import com.scy.wanandroid.entity.NavigationListData;
 import com.scy.wanandroid.entity.ProjectBean;
 import com.scy.wanandroid.entity.ProjectList;
 import com.scy.wanandroid.entity.RegisterBean;
@@ -77,6 +78,11 @@ public class DataManager implements HttpService {
     @Override
     public Observable<ProjectList> getProjectList(int page, int cid) {
         return WanAndroidHttpClient.create().getProjectList(page, cid);
+    }
+
+    @Override
+    public Observable<NavigationListData> getNaviList() {
+        return WanAndroidHttpClient.create().getNaviList();
     }
 
 }

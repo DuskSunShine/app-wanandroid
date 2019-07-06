@@ -143,7 +143,6 @@ implements KnowledgeDetailContract.View,OnRefreshLoadMoreListener {
             //dataBeanList.addAll(knowledgeDetail.getData().getDatas());
             if (knowledgeAdapter.getItemCount()>=knowledgeDetail.getData().getTotal()){
                 refreshLayout.finishLoadMore(1000,true,true);
-                return;
             }
             knowledgeAdapter.addData(knowledgeDetail.getData().getDatas());
         }

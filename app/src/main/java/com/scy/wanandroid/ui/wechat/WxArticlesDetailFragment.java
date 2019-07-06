@@ -121,7 +121,6 @@ implements WxArticlesDetailContract.View ,OnRefreshLoadMoreListener {
         }else {
             if (detailAdapter.getItemCount()>=wxArticlesDetail.getData().getTotal()){
                 smartRefreshLayout.finishLoadMore(1000,true,true);
-                return;
             }
             detailAdapter.addData(wxArticlesDetail.getData().getDatas());
         }
