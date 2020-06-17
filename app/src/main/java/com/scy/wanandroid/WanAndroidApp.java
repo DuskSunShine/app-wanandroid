@@ -8,6 +8,8 @@ import com.scy.wanandroid.constants.Constants;
 import com.tencent.bugly.crashreport.CrashReport;
 import com.tencent.smtt.sdk.QbSdk;
 
+import io.reactivex.functions.Consumer;
+import io.reactivex.plugins.RxJavaPlugins;
 import me.logg.Logg;
 import me.logg.config.LoggConfiguration;
 
@@ -29,6 +31,12 @@ public class WanAndroidApp extends Application {
             Stetho.initializeWithDefaults(this);
         }
         CrashReport.initCrashReport(this,Constants.BUGLY_APPID,false);
+        RxJavaPlugins.setErrorHandler(new Consumer<Throwable>() {
+            @Override
+            public void accept(Throwable throwable)  {
+                throwable.printStackTrace();
+            }
+        });
     }
 
     private void initX5() {

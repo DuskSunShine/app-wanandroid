@@ -10,5 +10,5 @@
     </style>
     <style name="ActivitySwipeTheme" parent="@style/AppTheme">
     <item name="android:windowIsTranslucent">true</item>
-    </style>>
+    </style>
 </resources>

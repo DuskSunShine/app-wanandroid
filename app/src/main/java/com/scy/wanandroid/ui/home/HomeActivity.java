@@ -20,6 +20,7 @@ import com.scy.wanandroid.presenter.MainPresenter;
 import com.scy.wanandroid.ui.knowledge.KnowledgeFragment;
 import com.scy.wanandroid.ui.NavigationFragment;
 import com.scy.wanandroid.ui.project.ProjectFragment;
+import com.scy.wanandroid.ui.wechat.WXArticlesFragment;
 import com.scy.wanandroid.utils.AppUtils;
 
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
 
     private HomeFragment homeFragment;
     private KnowledgeFragment knowledgeFragment;
-    private com.scy.wanandroid.ui.wechat.WXArticlesFragment WXArticlesFragment;
+    private WXArticlesFragment wxArticlesFragment;
     private ProjectFragment projectFragment;
     private NavigationFragment navigationFragment;
     @SuppressLint("UseSparseArrays")
@@ -61,9 +62,9 @@ public class HomeActivity extends BaseActivity<MainPresenter>
             knowledgeFragment = KnowledgeFragment.create();
             fragments.put(Constants.KNOWLEDGE, knowledgeFragment);
         }
-        if (AppUtils.isNull(WXArticlesFragment)) {
-            WXArticlesFragment = WXArticlesFragment.create();
-            fragments.put(Constants.WECHATSUB, WXArticlesFragment);
+        if (AppUtils.isNull(wxArticlesFragment)) {
+            wxArticlesFragment = WXArticlesFragment.create();
+            fragments.put(Constants.WECHATSUB, wxArticlesFragment);
         }
         if (AppUtils.isNull(projectFragment)) {
             projectFragment = ProjectFragment.create();
@@ -99,12 +100,12 @@ public class HomeActivity extends BaseActivity<MainPresenter>
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.add(R.id.frameLayout, homeFragment);
         transaction.add(R.id.frameLayout, knowledgeFragment);
-        transaction.add(R.id.frameLayout, WXArticlesFragment);
+        transaction.add(R.id.frameLayout, wxArticlesFragment);
         transaction.add(R.id.frameLayout, projectFragment);
         transaction.add(R.id.frameLayout, navigationFragment);
         transaction.hide(homeFragment);
         transaction.hide(knowledgeFragment);
-        transaction.hide(WXArticlesFragment);
+        transaction.hide(wxArticlesFragment);
         transaction.hide(projectFragment);
         transaction.hide(navigationFragment);
         transaction.commitAllowingStateLoss();
@@ -143,7 +144,7 @@ public class HomeActivity extends BaseActivity<MainPresenter>
                 main_title.setText(R.string.title_notification);
                 break;
             case Constants.WECHATSUB:
-                transaction.show(WXArticlesFragment);
+                transaction.show(wxArticlesFragment);
                 for (int f : hide) {
                     if (AppUtils.nonNull(fragments.get(f))) {
                         transaction.hide(fragments.get(f));

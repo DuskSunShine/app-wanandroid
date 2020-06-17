@@ -5,7 +5,7 @@ package com.scy.wanandroid.constants;
  */
 public class Constants {
 
-   public static final String BASEURL="http://www.wanandroid.com";
+   public static final String BASEURL="https://www.wanandroid.com";
 
    public static final int HOME=0x00;
 
